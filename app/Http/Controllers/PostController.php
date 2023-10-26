@@ -62,4 +62,9 @@ class PostController extends Controller
         $producto->delete();
         return to_route('dashboard')->with('status', 'post eliminado');
     }
+
+    public function ventas()
+    {
+        return view('producto.ventas');
+    }
 }
