@@ -39,7 +39,7 @@ class PostController extends Controller
     public function edit($id)
     {
         $producto = Productos::findOrFail($id);
-        return view('productos.edit', compact('producto'));
+        return view('producto.edit', compact('producto'));
     }
     public function update(Request $request, $id)
     {
