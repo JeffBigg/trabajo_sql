@@ -15,44 +15,47 @@
                         Registrar producto
                     </button>
 
+                    <div class="container">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Producto</th>
+                                        <th>Precio</th>
+                                        <th>Descripción</th>
+                                        <th>Stock</th>
+                                        <th>Categoría</th>
+                                        <th>Proveedor</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($productos as $producto)
+                                    <tr>
+                                        <td>{{ $producto->nombre_producto }}</td>
+                                        <td>S/.{{ $producto->precio }}</td>
+                                        <td>{{ $producto->descripcion }}</td>
+                                        <td>{{ $producto->existencias }}</td>
+                                        <td>{{ $producto->categoria }}</td>
+                                        <td>{{ $producto->proveedor }}</td>
+                                        <td>
+                                            <a href="{{ route('productos.edit', $producto) }}" type="button" class="btn btn-primary">
+                                                editar
+                                            </a>
 
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Precio</th>
-                                <th>Descripción</th>
-                                <th>Stock</th>
-                                <th>Categoría</th>
-                                <th>Proveedor</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($productos as $producto)
-                            <tr>
-                                <td>{{ $producto->nombre_producto }}</td>
-                                <td>S/.{{ $producto->precio }}</td>
-                                <td>{{ $producto->descripcion }}</td>
-                                <td>{{ $producto->existencias }}</td>
-                                <td>{{ $producto->categoria }}</td>
-                                <td>{{ $producto->proveedor }}</td>
-                                <td>
-                                    <a href="{{ route('productos.edit', $producto) }}" type="button" class="btn btn-primary">
-                                        editar
-                                    </a>
+                                            <form action="{{ route('productos.destroy', $producto) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Estás seguro de eliminar?')">Eliminar</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                                    <form action="{{ route('productos.destroy', $producto) }}" method="POST" style="display: inline;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger" onclick="return confirm('Estas seguro de eliminar?')">Eliminar</button>
-                                    </form>
-                                </td>
-                            </tr>
-
-                            @endforeach
-                        </tbody>
-                    </table>
 
 
                     <form action="{{ route('producto.store') }}" method="POST">
@@ -103,7 +106,7 @@
 
 
 
-                    
+
                 </div>
             </div>
         </div>
