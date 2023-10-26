@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Post;
 use App\Models\Productos;
 use Illuminate\Http\Request;
@@ -34,6 +35,26 @@ class PostController extends Controller
         $producto->save();
 
         return redirect()->route('dashboard');
+    }
+    public function edit($id)
+    {
+        $producto = Productos::findOrFail($id);
+        return view('productos.edit', compact('producto'));
+    }
+    public function update(Request $request, $id)
+    {
+        $producto = Productos::findOrFail($id);
+
+        $producto->nombre_producto = $request->input('nombre_producto');
+        $producto->precio = $request->input('precio');
+        $producto->descripcion = $request->input('descripcion');
+        $producto->existencias = $request->input('existencias');
+        $producto->categoria = $request->input('categoria');
+        $producto->proveedor = $request->input('proveedor');
+
+        $producto->save();
+
+        return redirect()->route('dashboard')->with('success', 'Producto actualizado con éxito');
     }
     public function destroy($id)
     {
